@@ -211,4 +211,16 @@ h2 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
     z-index: 1;
 }
+/* Estilos para los botones en las páginas de administración */
+.btn-custom {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.btn-back {
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+
 

@@ -220,3 +220,75 @@ function filtrarSucursal() {
         }
     });
 }
+
+function CargarTabla() {
+    let ruta = "http://localhost:8080/ElZarape2/api/sucursal/getall";
+    fetch(ruta)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            // Obtener la tabla y su cuerpo
+            const tablaRegistros = document.getElementById("tblSucursales");
+
+            // Limpiar la tabla
+            tablaRegistros.innerHTML = "";
+
+            // Recorrer los datos y agregar filas a la tabla
+            data.forEach(function (fila) {
+                const nuevaFila = tablaRegistros.insertRow(-1);
+
+                const idCell = nuevaFila.insertCell(0);
+                idCell.innerHTML = fila.idSucursal;
+
+                const nombreCell = nuevaFila.insertCell(1);
+                nombreCell.innerHTML = fila.nombreSucursal;
+
+                const ciudadCell = nuevaFila.insertCell(2);
+                ciudadCell.innerHTML = fila.idCiudad; // Asumiendo que tienes el ID de la ciudad
+
+                const estatusCell = nuevaFila.insertCell(3);
+                estatusCell.innerHTML = fila.estatus;
+
+                const calleCell = nuevaFila.insertCell(4);
+                calleCell.innerHTML = fila.calle;
+
+                const numCalleCell = nuevaFila.insertCell(5);
+                numCalleCell.innerHTML = fila.numCalle;
+
+                const coloniaCell = nuevaFila.insertCell(6);
+                coloniaCell.innerHTML = fila.colonia;
+
+                const latitudCell = nuevaFila.insertCell(7);
+                latitudCell.innerHTML = fila.latitud;
+
+                const longitudCell = nuevaFila.insertCell(8);
+                longitudCell.innerHTML = fila.longitud;
+
+                const urlCell = nuevaFila.insertCell(9);
+                urlCell.innerHTML = `<a href="${fila.urlWeb}" target="_blank">Ver</a>`; // Asumiendo que deseas mostrar un enlace
+
+                const horariosCell = nuevaFila.insertCell(10);
+                horariosCell.innerHTML = fila.horarios;
+
+                const fotoCell = nuevaFila.insertCell(11);
+                fotoCell.innerHTML = `<img src="${fila.foto}" alt="Foto" width="50" height="50">`; // Asegúrate de que la URL sea correcta
+
+                // Asignar un evento clic a la fila para llenar los campos
+                nuevaFila.addEventListener("click", function () {
+                    document.getElementById("txtNombre").value = fila.nombreSucursal;
+                    document.getElementById("txtCalle").value = fila.calle;
+                    document.getElementById("txtNumCalle").value = fila.numCalle;
+                    document.getElementById("txtColonia").value = fila.colonia;
+                    document.getElementById("txtLatitud").value = fila.latitud;
+                    document.getElementById("txtLongitud").value = fila.longitud;
+                    document.getElementById("txtUrlWeb").value = fila.urlWeb;
+                    document.getElementById("txtHorarios").value = fila.horarios;
+                    document.getElementById("txtId").value = fila.idSucursal; // Asignar el ID
+                });
+            });
+        })
+        .catch(function (error) {
+            console.error("Error al cargar la tabla: " + error);
+        });
+}
